@@ -1,9 +1,11 @@
-Pytorch Implementation of the paper [[arxiv_link][GenRadar: Self-supervised Probabilistic
+Pytorch Implementation of the paper [[https://arxiv.org/pdf/2107.08948.pdf][GenRadar: Self-supervised Probabilistic
 Camera Synthesis based on Radar Frequencies]]. The model was designed to
-probabilistically generate intuitive camera views if supplied with nothing but
-synchronous range-Doppler information.
+probabilistically generate intuitive camera views of real-world scenarios if
+supplied with nothing but synchronous range-Doppler information.
 
-*[[arxiv_link][Arxiv]]* | *[[https://cditzel.github.io/GenRadar/][Project Page]]* | *[[bla][BibTex]]*
+Code to follow soon...
+
+*[[https://arxiv.org/pdf/2107.08948.pdf][Arxiv]]* | *[[https://cditzel.github.io/GenRadar/][Project Page]]* | *[[resources/paper.bib][BibTex]]*
 
 [[https://www.linkedin.com/in/carsten-ditzel/][Carsten Ditzel]],
 [[https://www.uni-ulm.de/in/mrm/institut/mitarbeiter/institutsleitung/prof-dr-ing-klaus-dietmayer][Klaus Dietmayer]]
