@@ -1,0 +1,393 @@
+<!DOCTYPE HTML>
+<!--
+Based on
+Spatial by TEMPLATED
+templated.co @templatedco
+Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+<head>
+
+  <title>
+  GenRadar: Self-supervised Probabilistic Camera Synthesis based on Radar Frequencies</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="main.css" />
+
+</head>
+<body class="landing">
+  <section id="banner" style="background-attachment:scroll;">
+    <h2>
+      GenRadar: Self-supervised Probabilistic Camera Synthesis based on Radar Frequencies
+    </h2>
+    <p>
+      <a href="https://www.linkedin.com/in/carsten-ditzel/">Carsten Ditzel</a>,
+      <a href="https://www.uni-ulm.de/in/mrm/institut/mitarbeiter/institutsleitung/prof-dr-ing-klaus-dietmayer/">Klaus Dietmayer</a>,
+
+    </p>
+  </section>
+  <section id="one" class="wrapper style1">
+    <div class="container 75%">
+
+      <div class="image centered captioned align-just"
+           style="margin-bottom:2em; box-shadow:0 0;
+                  text-align:justify">
+        <h2><strong>Maintaining clear impressions of the environment for
+         autonomous systems even in adverse weather conditions</strong></h2>
+      </div>
+
+      <div class="row 200%">
+        <div style="width: 25%">
+          <div class="container 25%">
+            <div class="image fit captioned align-center"
+                 style="margin-bottom:0em; margin-left:2em; box-shadow:0 0">
+              <a href="">
+                <img src="resources/paper.png" alt="" style="border:1px solid black"/>
+              </a>
+              <a href="https://arxiv.org/pdf/2107.08948.pdf">arXiv</a>
+              <div class="headerDivider"></div>
+              <a href="resources/paper.bib">BibTeX</a>
+              <div class="headerDivider"></div>
+              <a href="https://github.com/ditzel/GenRadar">GitHub</a>
+              <br/>
+
+            </div>
+          </div>
+        </div>
+        <div style="text-align: justify; margin-left: 15%; width: 60%">
+          <h1>Abstract</h1>
+          <p> Autonomous systems require a continuous and dependable environment
+          perception for navigation and decision making which is best achieved
+          by combining different sensor types. Radar continues to function
+          robustly in compromised circumstances in which cameras become
+          impaired, guaranteeing a steady inflow of information. Yet camera
+          images provide a more intuitive and readily applicable impression of
+          the world. This work combines the complementary strengths of both
+          sensor types in a unique self-learning fusion approach for a
+          probabilistic scene reconstruction in adverse surrounding
+          conditions. After reducing the memory requirements of the synchronized
+          measurements through a decoupled stochastic self-supervised
+          compression technique, the proposed algorithm exploits similarities
+          and establishes correspondences between both domains at different
+          feature levels during training. Then, at inference time, relying
+          exclusively on radio frequencies the model successively predicts
+          camera constituents in an autoregressive and self-contained
+          process. These discrete tokens are finally transformed into an
+          instructive view of the respective surrounding allowing to visually
+          perceive potential dangers for important tasks downstream. </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="three" class="wrapper style2 special">
+    <div class="container">
+      <!-- <header class="major"> -->
+        <!-- <h2>Probabilistic Camera Construction via Radar conditioning</h2> -->
+        <!-- <br> -->
+        <!-- </header> -->
+
+        <header class="minor">
+          <h2> Without any explicit annotation, the model relies exclusively on
+          radar-based environment sensing to construct intuitive camera views of
+          the surrounding
+          </h2>
+        </header>
+
+        <div class="row 250%">
+          <div class="6u 12u$(xsmall)">
+  		    <div class="container has-text-centered">
+                  <img src="./resources/teaser_scaled.png" width="1200" />
+                  <figcaption>
+                  <font color="red">Camera view generation </font> based solely
+                    on <font color="green"> radar-frequency information.</font>
+                    The synchronized <font color="blue">camera
+                    ground-truth</font> is supplied for visual reference
+                    only. The model generally succeeds in inferring the
+                    essential characteristics and captures key features of the
+                    underlying real-world scenery. Less confidence is shown for
+                    the exact localization of dynamic objects in rapidly
+                    changing environments, particularly if visible in only one
+                    of both sensors, therefore lacking cross-modal correspondence.
+                </figcaption>
+              </div>
+            </div>
+            <div class="6u$ 12u$(xsmall)">
+  </section>
+
+  	  	<hr>
+
+		  <div class="container">
+			  <center><h2>Approach</h2>
+              <br>
+              <h4>This work addresses two fundamental aspects of applied modern
+                deep learning research: </h4></center>
+              <br>
+              <ul>
+                <li>The pervasive yet often unnecessary reliance on explicitly
+                labeled datasets does not scale to the requirements of
+                real-world problems. Manual annotations impair the purity of the
+                data by introducing <strong>misinformation</strong> and
+                application-related bias. Human interference narrows down the
+                information content of the data and needlessly curtails its
+                significance. Outliers are neglected which prevents the coverage of
+                edge cases vitally important for the application of neural
+                algorithms to real-world situations.</li>
+              <br>
+                <li>Deep learning most often resorts to high-level data
+                representations for better intuition while limiting the data
+                amount that needs to be stored and processed. Yet, any manually
+                performed processing discards crucial information
+                through <strong> equivocation </strong> and should therefore be
+                kept to a minimum. Neural networks do not require the level of
+                visual impressiveness in data as humans do. Collecting the data
+                close to the sensor thus preserves valuable information for the
+                models to find concealed pattern within.
+                </li>
+              </ul>
+
+              To tackle both problems, the proposed algorithm comprises two
+              stages which are both trained end-to-end in a self-supervised
+              fashion on low-level radar data without the need for expensive and
+              time-consuming annotations.
+
+              After the training of both stages has been completed,
+              probabilistic predictions about the environment are performed.
+			</header>
+  	  	    <hr>
+          </div>
+
+		<section id="two" class="wrapper style2 special">
+            <div class="container 100%">
+              <div class="image fit captioned align-left"
+                   style="margin-bottom:0em; box-shadow:0 0; text-align:justify">
+              </div>
+              <h2 class="title is-3">1. Stage: Probabilistic Measurement
+              Compression</h2> Both memory-intensive sensor streams are
+              compressed through categorical variational autoencoders into
+              stochastic integer sequences. Each contained token takes on one of
+              256 categories representing square input patches of either domain.
+              The reconstruction quality of these quantized representations is a
+              measure of the models discretization capabilities and used as part
+              of the training objective. The animations show how the networks
+              assign different regions of the sensor outputs to distinct latent
+              categories.
+
+                <table align=center width=1100px>
+  			      <tr>
+  	                <td width=200px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+                          <img class="static" src="./resources/roundabout_rad_cam_compression_256_fr5_every5th_q100.png"><img class="active" src="./resources/roundabout_rad_cam_compression_256_fr5_every5th_q100.gif">
+                        </a>
+                        <br>
+                        <span style="font-size:14px">(hover for animation) </span>
+                      </center>
+  	                  </td>
+                      <td width=100px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+                          <img class="static" src="./resources/crossing_rad_cam_compression_256_fr5_every5th_q100.png"><img class="active" src="./resources/crossing_rad_cam_compression_256_fr5_every5th_q100.gif">
+                        </a>
+                        <br>
+                        <span style="font-size:14px">(hover for animation) </span>
+                      </center>
+  	                  </td>
+                      <td width=50px>
+  					    <center>
+  						<span style="font-size:22px"></span><br>
+                          <img class="static" src="./resources/garage_rad_cam_compression_256_fr5_every5th_q100.png"><img class="active" src="./resources/garage_rad_cam_compression_256_fr5_every5th_q100.gif">
+                        </a>
+                        <br>
+                        <span style="font-size:14px">(hover for animation) </span>
+                      </center>
+  	                  </td>
+                    </tr>
+  		          </table>
+  		          <br><br>
+  	  	<hr>
+
+            <div class="container 100%">
+              <h2 class="title is-3">2. Stage: Crossmodal Modeling of Sensor
+              Constituents</h2> Using the memory-reduced domain representations,
+              an autoregressive transformer model finds links between radar
+              and camera measurements in latent space and learns to recognize
+              correlations between both modalities. The incorporated attention
+              mechanism is used to condition camera tokens on discretized radar
+              information. Below animation shows the inter-modal attention span
+              for every head in every layer of the model. Each matrix denotes
+              the strength with which camera tokens pay attention to radar
+              tokens.
+              <br /> <br />
+
+              <img class="static" src="./resources/attn.png"><img class="active" src="./resources/attn.gif">
+
+            </div>
+          </div>
+        </section>
+  	  	<hr>
+
+        <section id="four" class="wrapper style2 special">
+          <div class="container 85%">
+            <header class="major">
+              <h2>Range-Doppler conditioned SYNTHESIS OF CAMERA Views</h2>
+              <br>
+                The trained model successively outputs probability mass functions
+              over camera constituents. Sampling then predicts camera content
+              based exclusively on robust radar sequences regardless of weather
+              conditions. Appending the tokens to the radar sequence makes the
+              model increasingly confident about the composition of the
+              environment in latent space. Upon completed prediction, the
+              constructed camera sequence is decompressed by the categorical
+              decoder into an instructive view of the surroundings.
+            </header>
+            <table align=center width=500px>
+  			      <tr>
+  	                <td width=200px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+  	                	<img src = "./resources/reveal_1.gif" width =
+  	                	"200"></a><br></center>
+  	                  </td>
+                      <td width=200px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+  	                	<img src = "./resources/reveal_2.gif" width =
+  	                	"200"></a><br></center>
+  	                  </td>
+                       <td width=200px>
+  					    <center>
+  						<span style="font-size:22px"></span><br>
+  	                	<img src = "./resources/reveal_3.gif" width =
+  	                	"200"></a><br></center>
+  	                  </td>
+                      <td width=200px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+  	                	<img src = "./resources/reveal_4.gif" width =
+  	                	     "200"></a><br></center>
+  	                  </td>
+</table>
+<figcaption>
+                  <font color="red">Stepwise camera view generation </font>
+                    based solely on <font color="green"> radar-frequency
+                    information.</font>  The
+                    synchronized <font color="blue">camera ground-truth</font>
+                    is supplied for visual reference only. At times, the model
+                    is thrown off track by suboptimal first camera samples and
+                    dreams up completely artificial environments. Most often
+                    though, the model succeeds in reproducing the global
+                    structure of the surroundings and for the most part manages
+                    to compile a realistic rendering of its central components.
+                </figcaption>
+  		          <br><br>
+  	  	<hr>
+
+
+        <h2>Exploring the conditional sample space with temperature sweeps</h2>
+        Constraining the sample space while varying the sampling temperature
+        allows to control the quality of the camera samples. Below animations
+        show probabilistic results and contrasts the generated views for
+        improved visual intuition.
+        <br>
+        <br>
+        <br>
+  <table align=center width=1100px>
+  			      <tr>
+  	                <td width=200px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+                      <td width=100px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+                          <img class="static" src="./resources/roundabout_k256_fr2_every10th_q100.png"><img class="active" src="./resources/roundabout_k256_fr2_every10th_q100.gif">
+                          <!-- <img class="static" src="./resources/roundabout_k256_fr2_every10th_q100.png"><img class="active" src="https://s6.gifyu.com/images/roundabout_k256_fr2_every10th_q100.gif"> -->
+                      </center>
+  	                  </td>
+                      <td width=100px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+                          <img class="static" src="./resources/suedschiene_k1024_fr2_every5th_q70.png"><img class="active" src="./resources/suedschiene_k1024_fr2_every5th_q70.gif">
+                          <!-- <img class="static" src="./resources/suedschiene_k1024_fr2_every5th_q70.png"><img class="active" src="https://s6.gifyu.com/images/suedschiene_k1024_fr2_every5th_q70.gif"> -->
+                      </center>
+  	                  </td>
+                      <td width=100px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+                          <img class="static" src="./resources/garage_k1024_fr2_every5th_q70.png"><img class="active" src="./resources/garage_k1024_fr2_every5th_q70.gif">
+                          <!-- <img class="static" src="./resources/garage_k1024_fr2_every5th_q70.png"><img class="active" src="./resources/garage_k1024_fr2_every5th_q70.gif"> -->
+                      </center>
+  	                  </td>
+                        <!-- <td width=100px> -->
+  					  <!-- <center> -->
+  						<!-- <span style="font-size:22px"></span><br> -->
+                          <!-- <img class="static" src="./resources/pedestrian_k1024_fr2_every5th_q70.png"><img class="active" src="./resources/pedestrian_k1024_fr2_every5th_q70.gif"> -->
+                        <!-- </a> -->
+                        <!-- <br> -->
+                        <!-- <span style="font-size:14px">(hover for our results; click for full images) </span> -->
+                        <!-- <br> -->
+                        <!-- <span style="font-size:14px">extention of Figure 15 from our paper </span> -->
+                      <!-- </center> -->
+  	                    <!-- </td> -->
+                          </td>
+                        <td width=100px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+                          <img class="static" src="./resources/hut_k1024_fr2_every5th_q70.png"><img class="active" src="./resources/hut_k1024_fr2_every5th_q70.gif">
+                          <!-- <img class="static" src="./resources/hut_k1024_fr2_every5th_q70.png"><img class="active" src="https://s6.gifyu.com/images/hut_k1024_fr2_every5th_q70.gif"> -->
+                        <br>
+                      </center>
+                     </td>
+                    <td width=100px>
+  					  <center>
+  						<span style="font-size:22px"></span><br>
+                          <img class="static" src="./resources/winter_k1024_fr2_every5th_q70.png"><img class="active" src="./resources/winter_k1024_fr2_every5th_q70.gif">
+                          <!-- <img class="static" src="./resources/winter_k1024_fr2_every5th_q70.png"><img class="active" src="https://s6.gifyu.com/images/winter_k1024_fr2_every5th_q70.gif"> -->
+                      </center>
+  	                  </td>
+                    </tr>
+</table>
+Nucleus inference with only a limited number of categories K̂ = 25 to sample camera
+constituents from. The temporal context underlines the differences in synthesis
+quality when the sampling temperature varies. Unconstrained category selection
+over the entire camera sample space and top-1 sampling with K̂ = 1 serve
+as basic visual references.
+<br><br>
+<br><br>
+
+<h3>The designed method succeeds in reflecting on the integral objects of a
+scene and reconstructs crucial entities in the sensors vicinity.  </h3>
+
+                                </section>
+
+
+
+                                            <!-- Six -->
+                                            <section id="six" class="wrapper style3 special"
+                                                     style="background-attachment:scroll;background-position:center bottom;">
+                                              <div class="container">
+                                                <header class="major">
+                                                  <h2>Acknowledgment</h2>
+                                                  <p>
+                                                    The author would like to
+                                                    mention the EleutherAI
+                                                    community and members of the
+                                                    EleutherAI discord channels
+                                                    for fruitful and interesting
+                                                    discussions along the way of
+                                                    composing this
+                                                    paper. Additional thanks to
+                                                    Phil Wang (lucidrains) for
+                                                    his tireless efforts of
+                                                    making attention-based
+                                                    algorithms accessible to the
+                                                    humble deep learning
+                                                    research community.
+                                                  </p>
+                                                </header>
+                                              </div>
+                                            </section>
+
+	                                      </body>
+                                        </html>

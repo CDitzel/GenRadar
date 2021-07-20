@@ -1,0 +1,14 @@
+Pytorch Implementation of the paper [[arxiv_link][GenRadar: Self-supervised Probabilistic
+Camera Synthesis based on Radar Frequencies]]. The model was designed to
+probabilistically generate intuitive camera views if supplied with nothing but
+synchronous range-Doppler information.
+
+*[[arxiv_link][Arxiv]]* | *[[https://cditzel.github.io/GenRadar/][Project Page]]* | *[[bla][BibTex]]*
+
+[[https://www.linkedin.com/in/carsten-ditzel/][Carsten Ditzel]],
+[[https://www.uni-ulm.de/in/mrm/institut/mitarbeiter/institutsleitung/prof-dr-ing-klaus-dietmayer][Klaus Dietmayer]]
+
+#+CAPTION: This is the caption for the next figure link (or table)
+#+NAME:   fig:SED-HR4049
+#+ATTR_LATEX: :caption \bicaption{HeadingA}{HeadingB}
+[[./resources/front.png]]
